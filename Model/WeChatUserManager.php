@@ -6,6 +6,7 @@ namespace AlbertMage\WeChat\Model;
 
 use AlbertMage\WeChat\Api\WeChatUserManagerInterface;
 use AlbertMage\Customer\Api\Data\SocialAccountInterfaceFactory;
+use AlbertMage\Customer\Api\CustomerTokenServiceInterface;
 
 /**
  * Interface SocialUserManagerInterface
@@ -25,15 +26,24 @@ class WeChatUserManager extends WeChatUserManagerInterface
     private $socialAccountInterfaceFactory;
 
     /**
+     * @var CustomerTokenServiceInterface
+     */
+    private $customerTokenService;
+
+    /**
      * Initialize service
      *
      * @param SocialAccountInterfaceFactory $socialAccountInterfaceFactory
+     * @param CustomerTokenServiceInterface $customerTokenService 
      */
     public function __construct(
-        SocialAccountInterfaceFactory $socialAccountInterfaceFactory
+        SocialAccountInterfaceFactory $socialAccountInterfaceFactory,
+        CustomerTokenServiceInterface $customerTokenService
     ) {
         $this->socialAccountInterfaceFactory = $socialAccountInterfaceFactory;
+        $this->customerTokenService = $customerTokenService;
     }
+    
     /**
      * @inheritdoc
      */
@@ -43,13 +53,15 @@ class WeChatUserManager extends WeChatUserManagerInterface
             throw new \Magento\Framework\Exception\LocalizedException(__("code is incorrect"), null, 4001);
         }
         //get user info
-        $this->socialAccountInterfaceFactory->create();
+        $socialUser = $this->socialAccountInterfaceFactory->create();
         $openId = 'd4d6-6sfdddsaddf';
         $unionId = 'uuasfd-d6334fsssdaffsadsfdsadasdfffsddsaf';
-        $this->socialUser->setOpenId($openId);
-        $this->socialUser->setUnionId($unionId);
+        $socialUser->setOpenId($openId);
+        $socialUser->setUnionId($unionId);
+        $socialUser->setApplication(self::APPLICATION);
+        $socialUser->setPlatform(self::PLATFORM);
         //do somethings
-        return $this->socialUser;
+        return $this->customerTokenService->createCustomerAccessToken($socialUser);
     }
 
 }

@@ -18,5 +18,5 @@ interface WeChatUserManagerInterface
      * @return \AlbertMage\Customer\Api\Data\CustomerTokenInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function createCustomerAccessToken($code);
+    public function login($code);
 }

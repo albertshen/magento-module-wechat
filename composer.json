@@ -11,7 +11,7 @@
     },
     "require": {
         "php": "~7.3.0||~7.4.0||~8.0",
-        "w7corp/easywechat": "~6.7",
+        "w7corp/easywechat": "~6.7"
     },
     "authors": [{
         "name": "Albert Shen",

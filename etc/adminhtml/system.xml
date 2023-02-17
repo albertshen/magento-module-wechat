@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © PHPDigital, Inc. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="wechat" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>WECHAT</label>
+            <tab>albertmage</tab>
+            <resource>AlbertMage_WeChat::config</resource>
+            <group id="weapp" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>WeChat Miniprogram account - powered by PHPDigital</label>
+                <field id="active" translate="label comment" sortOrder="1" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="appid" translate="label" required="true" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>APPID</label>
+                </field>
+                <field id="secret" translate="label" required="true" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>SECRET</label>
+                </field>
+                <field id="token" translate="label" required="true" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>TOKEN</label>
+                </field>
+                <field id="aes_key" translate="label" required="true" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>AES KEY</label>
+                </field>
+                <field id="throw" translate="label" required="true" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>THROW</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>状态码非 200、300 时是否抛出异常，默认为开启</comment>
+                </field>
+                <field id="timeout" translate="label" required="true" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>TIMEOUT</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

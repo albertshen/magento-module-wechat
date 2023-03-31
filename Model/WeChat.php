@@ -6,12 +6,12 @@ namespace AlbertMage\WeChat\Model;
 
 use AlbertMage\WeChat\Model\Config as ConfigData;
 use AlbertMage\Core\Model\Cache;
-use Magento\Framework\Model\AbstractModel;
+use Magento\Framework\DataObject;
 
 /**
  * @author Albert Shen <albertshen1206@gmail.com>
  */
-class WeChat extends AbstractModel
+class WeChat extends DataObject implements \AlbertMage\WeChat\Api\WeChatInterface
 {
 
     /**

@@ -19,6 +19,10 @@ class Config
      */
     const XML_PATH_PREFIX = 'wechat/weapp';
 
+    const GATEWAY_TYPE = 'weapp';
+
+    const GATEWAY = 'default';
+
     /**
      * store
      *
@@ -69,9 +73,13 @@ class Config
      * @param int $store
      * @return bool
      */
-    public function isEnabled($store = null)
+    public function isSubscribeMessageEnabled($store = null)
     {
-
+        return $this->scopeConfig->isSetFlag(
+            self::XML_PATH_PREFIX . '/subscribe_message_active',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
+            $store
+        );
     }
 
     /**

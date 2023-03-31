@@ -37,6 +37,10 @@
                 <field id="timeout" translate="label" required="true" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>TIMEOUT</label>
                 </field>
+                <field id="subscribe_message_active" translate="label comment" sortOrder="7" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>SUBSCRIBE MESSAGE ACTIVE</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
             </group>
         </section>
     </system>

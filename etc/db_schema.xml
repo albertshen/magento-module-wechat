@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © PHPDigital, Inc. All rights reserved.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="wechat_subscribe_message" resource="default" engine="innodb" comment="WeChat subscribe message">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="varchar" name="openid" nullable="false" length="50" comment="OpenID"/>
+        <column xsi:type="varchar" name="template_id" nullable="false" length="255" comment="TemplateID"/>
+        <column xsi:type="int" name="subscribe_times" unsigned="true" nullable="true" comment="Subscribe times"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <index referenceId="WECHAT_SUBSCRIBE_MESSAGE_OPENID" indexType="btree">
+            <column name="openid"/>
+        </index>
+        <index referenceId="WECHAT_SUBSCRIBE_MESSAGE_TEMPLATE_ID">
+            <column name="template_id"/>
+        </index>
+    </table>
+</schema>

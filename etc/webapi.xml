@@ -6,4 +6,10 @@
 			<resource ref="anonymous"/>
 		</resources>
 	</route>
+	<route url="/V1/westore/register" method="GET">
+		<service class="AlbertMage\WeChat\Api\WeAppUserManagementInterface" method="register"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
 </routes>

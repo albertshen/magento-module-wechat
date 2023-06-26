@@ -11,4 +11,13 @@ namespace AlbertMage\WeChat\Api;
  */
 interface WeAppUserManagementInterface extends WeChatUserManagementInterface
 {
+    /**
+     * Register with use phone number
+     *
+     * @param string $guestToken
+     * @param string $code
+     * @return \AlbertMage\Customer\Api\Data\CustomerTokenInterface
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
+    public function register($guestToken, $code);
 }

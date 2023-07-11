@@ -9,8 +9,9 @@ use AlbertMage\WeChat\Model\WeApp\SenderFactory;
 use AlbertMage\WeChat\Model\WeApp\MessageFactory;
 use AlbertMage\Notification\Model\Order\NotifierInterface;
 use AlbertMage\Notification\Api\Data\NotificationInterface;
-use AlbertMage\Customer\Api\Data\SocialAccountInterfaceFactory;
+use AlbertMage\Customer\Model\ResourceModel\SocialAccountRepository;
 use AlbertMage\WeChat\Model\SubscribeMessageManagementFactory;
+use AlbertMage\Core\Model\TokenFactory;
 
 class Notifier implements NotifierInterface
 {
@@ -36,37 +37,45 @@ class Notifier implements NotifierInterface
     protected $messageFactory;
 
     /**
-     * @var SocialAccountInterfaceFactory
+     * @var SocialAccountRepository
      */
-    protected $socialAccountInterfaceFactory;
+    protected $socialAccountRepository;
 
     /**
      * @var SubscribeMessageManagementFactory
      */
     protected $subscribeMessageManagementFactory;
+    
+    /**
+     * @var TokenFactory
+     */
+    protected $tokenFactory;
 
     /**
      * @param EventManagerInterface $eventManager
      * @param Config $config
      * @param SenderFactory $senderFactory
      * @param MessageFactory $messageFactory
-     * @param SocialAccountInterfaceFactory $socialAccountInterfaceFactory
+     * @param SocialAccountRepository $socialAccountRepository
      * @param SubscribeMessageManagementFactory $subscribeMessageManagementFactory
+     * @param TokenFactory $tokenFactory
      */
     public function __construct(
         EventManagerInterface $eventManager,
         Config $config,
         SenderFactory $senderFactory,
         MessageFactory $messageFactory,
-        SocialAccountInterfaceFactory $socialAccountInterfaceFactory,
-        SubscribeMessageManagementFactory $subscribeMessageManagementFactory
+        SocialAccountRepository $socialAccountRepository,
+        SubscribeMessageManagementFactory $subscribeMessageManagementFactory,
+        TokenFactory $tokenFactory
     ) {
         $this->eventManager = $eventManager;
         $this->config = $config;
         $this->senderFactory = $senderFactory;
         $this->messageFactory = $messageFactory;
-        $this->socialAccountInterfaceFactory = $socialAccountInterfaceFactory;
+        $this->socialAccountRepository = $socialAccountRepository;
         $this->subscribeMessageManagementFactory = $subscribeMessageManagementFactory;
+        $this->tokenFactory = $tokenFactory;
     }
 
     /**
@@ -78,15 +87,25 @@ class Notifier implements NotifierInterface
     public function notify(OrderInterface $order, string $event, NotificationInterface $notification)
     {
 
-        if (!$this->config->isSubscribeMessageEnabled($order->getStore()->getId())) {
+        if (!$this->config->isSubscribeMessageEnabled($order->getStore()->getId()) && $this->config->getConfigValue('subcribe_message/active')) {
             return $notification;
         }
 
-        $weappUser = $this->socialAccountInterfaceFactory->create()->load($order->getCustomerId(), 'customer_id');
+        if (!$this->config->getConfigValue('subcribe_message/order/'.$event.'_enabled')) {
+            return $notification;
+        }
+
+        $weappUser = $this->socialAccountRepository->getWeChatMiniprogramAccount($order->getCustomerId());
+
+        $token = $this->tokenFactory->create();
+        $token->setOrder($order);
+        $token->setSocialAccount($weappUser);
+        $templateData = $token->parse($this->config->getConfigValue('subcribe_message/order/'.$event.'_template_preivew'));
 
         $message = $this->messageFactory->create();
-
         $message->setToUser($weappUser->getOpenId());
+        $message->setTemplateId($this->config->getConfigValue('subcribe_message/order/'.$event.'_template'));
+        $message->addData($templateData);
 
         //prepare template data
         $this->eventManager->dispatch(

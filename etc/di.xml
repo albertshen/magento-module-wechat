@@ -10,4 +10,25 @@
             </argument>
         </arguments>
     </virtualType>
+    <virtualType name="AlbertMage\Notification\Model\Order\OrderCreateNotifier" type="AlbertMage\Notification\Model\Order\Notifier">
+        <arguments>
+            <argument name="notifiers" xsi:type="array">
+                <item name="subscribe_message" xsi:type="object">AlbertMage\WeChat\Model\WeApp\Order\Notifier</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AlbertMage\Notification\Model\Order\OrderCancelNotifier" type="AlbertMage\Notification\Model\Order\Notifier">
+        <arguments>
+            <argument name="notifiers" xsi:type="array">
+                <item name="subscribe_message" xsi:type="object">AlbertMage\WeChat\Model\WeApp\Order\Notifier</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AlbertMage\Notification\Model\Order\OrderExpireNoticeNotifier" type="AlbertMage\Notification\Model\Order\Notifier">
+        <arguments>
+            <argument name="notifiers" xsi:type="array">
+                <item name="subscribe_message" xsi:type="object">AlbertMage\WeChat\Model\WeApp\Order\Notifier</item>
+            </argument>
+        </arguments>
+    </virtualType>
 </config>

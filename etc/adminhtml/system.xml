@@ -41,6 +41,68 @@
                     <label>SUBSCRIBE MESSAGE ACTIVE</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
+                <group id="subcribe_message" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Miniprogram Subscribe Message Template</label>
+                    <field id="active" translate="label comment" sortOrder="1" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <group id="order" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="100">
+                        <label>Order</label>
+                        <attribute type="expanded">1</attribute>
+                        <!-- New Order -->
+                        <field id="order_create_heading" translate="label" sortOrder="1" showInStore="1" showInWebsite="1" showInDefault="1">
+                            <label>New Order</label>
+                            <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                        </field>
+                        <field id="order_create_enabled" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                            <label>Notification Enabled</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="order_create_template" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Template Id</label>
+                            <comment>New Order Template Id</comment>
+                        </field>
+                        <field id="order_create_template_preivew" translate="comment label" sortOrder="4" type="textarea" showInStore="1" showInWebsite="1" showInDefault="1">
+                            <label>Template Preview</label>
+                            <comment>New Order Template Preview</comment>
+                        </field>
+                        <!-- Order Expire Notice -->
+                        <field id="order_expire_notice_heading" translate="label" sortOrder="11" showInStore="5" showInWebsite="1" showInDefault="1">
+                            <label>Order Expire Notice</label>
+                            <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                        </field>
+                        <field id="order_expire_notice_enabled" translate="label" type="select" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                            <label>Notification Enabled</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="order_expire_notice_template" translate="label" type="text" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Template Id</label>
+                            <comment>Order Expire Notice Template Id</comment>
+                        </field>
+                        <field id="order_expire_notice_template_preivew" translate="comment label" sortOrder="14" type="textarea" showInStore="1" showInWebsite="1" showInDefault="1">
+                            <label>Template Preview</label>
+                            <comment>Order Expire Notice Template Preview</comment>
+                        </field>
+                        <!-- Order Cancel -->
+                        <field id="order_cancel_heading" translate="label" sortOrder="21" showInStore="9" showInWebsite="1" showInDefault="1">
+                            <label>Order Cancel</label>
+                            <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                        </field>
+                        <field id="order_cancel_enabled" translate="label" type="select" sortOrder="22" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                            <label>Notification Enabled</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="order_cancel_template" translate="label" type="text" sortOrder="23" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Template Id</label>
+                            <comment>Order Cancel Template Id</comment>
+                        </field>
+                        <field id="order_cancel_template_preivew" translate="comment label" sortOrder="24" type="textarea" showInStore="1" showInWebsite="1" showInDefault="1">
+                            <label>Template Preview</label>
+                            <comment>Order Cancel Template Preview</comment>
+                        </field>
+                    </group>
+                </group>
             </group>
         </section>
     </system>

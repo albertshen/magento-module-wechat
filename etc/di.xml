@@ -2,6 +2,7 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 	<preference for="AlbertMage\WeChat\Api\WeAppUserManagementInterface" type="AlbertMage\WeChat\Model\WeApp\UserManagement"/>
 	<preference for="AlbertMage\WeChat\Api\WeChatInterface" type="AlbertMage\WeChat\Model\WeChat"/>
+    <preference for="AlbertMage\WeChat\Api\SubscribeMessageManagementInterface" type="AlbertMage\WeChat\Model\SubscribeMessageManagement"/>
 
     <virtualType name="AlbertMage\Notification\Model\Order\OrderPaymentCatpureNotifier" type="AlbertMage\Notification\Model\Order\Notifier">
         <arguments>

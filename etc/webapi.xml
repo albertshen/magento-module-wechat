@@ -12,4 +12,13 @@
 			<resource ref="anonymous"/>
 		</resources>
 	</route>
+	<route url="/V1/westore/message/subscribe" method="POST">
+		<service class="AlbertMage\WeChat\Api\SubscribeMessageManagementInterface" method="customerSubscribe"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+	</route>
 </routes>

@@ -97,27 +97,32 @@ class Notifier implements NotifierInterface
 
         $weappUser = $this->socialAccountRepository->getWeChatMiniprogramAccount($order->getCustomerId());
 
+        $templateId = $this->config->getConfigValue('subcribe_message/order/'.$event.'_template');
+
+        $subscribeMessageManagement = $this->subscribeMessageManagementFactory->create();
+        
+        if (!$subscribeMessageManagement->hasSubscribe($weappUser->getOpenId(), $templateId)) {
+            return $notification;
+        }
+
+        //prepare template data
         $token = $this->tokenFactory->create();
         $token->setOrder($order);
         $token->setSocialAccount($weappUser);
         $templateData = $token->parse($this->config->getConfigValue('subcribe_message/order/'.$event.'_template_preivew'));
 
+        //prepare message
         $message = $this->messageFactory->create();
         $message->setToUser($weappUser->getOpenId());
-        $message->setTemplateId($this->config->getConfigValue('subcribe_message/order/'.$event.'_template'));
-        $message->addData($templateData);
+        $message->setTemplateId($templateId);
+        $message->setPage($templateData['page']);
+        $message->setMessageData($templateData['data']);
 
-        //prepare template data
+        //process template data
         $this->eventManager->dispatch(
             Config::GATEWAY_TYPE . '_' . $event . '_set_message_before',
             ['order' => $order, 'message' => $message]
         );
-
-        $subscribeMessageManagement = $this->subscribeMessageManagementFactory->create();
-        
-        if (!$subscribeMessageManagement->hasSubscribe($weappUser->getOpenId(), $message->getTemplateId())) {
-            return $notification;
-        }
 
         $response = $this->senderFactory->create()->send($message);
 

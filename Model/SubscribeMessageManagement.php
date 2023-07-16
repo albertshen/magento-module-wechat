@@ -6,36 +6,59 @@ namespace AlbertMage\WeChat\Model;
 
 use AlbertMage\WeChat\Model\SubscribeMessageRepository;
 use AlbertMage\WeChat\Model\SubscribeMessageFactory;
+use AlbertMage\Customer\Model\ResourceModel\SocialAccountRepository;
 
 /**
- * @api
  * @author Albert Shen <albertshen1206@gmail.com>
  */
-class SubscribeMessageManagement
+class SubscribeMessageManagement implements \AlbertMage\WeChat\Api\SubscribeMessageManagementInterface
 {
 
     /**
      * @var SubscribeMessageRepository
      */
-    private $subscribeMessageRepository;
+    protected $subscribeMessageRepository;
 
     /**
      * @var SubscribeMessageFactory
      */
-    private $subscribeMessageFactory;
+    protected $subscribeMessageFactory;
+
+    /**
+     * @var SocialAccountRepository
+     */
+    protected $socialAccountRepository;
 
     /**
      * Initialize service
      *
      * @param SubscribeMessageRepository $subscribeMessageRepository
      * @param SubscribeMessageFactory $subscribeMessageFactory
+     * @param SocialAccountRepository $socialAccountRepository
      */
     public function __construct(
         SubscribeMessageRepository $subscribeMessageRepository,
-        SubscribeMessageFactory $subscribeMessageFactory
+        SubscribeMessageFactory $subscribeMessageFactory,
+        SocialAccountRepository $socialAccountRepository
     ) {
         $this->subscribeMessageRepository = $subscribeMessageRepository;
         $this->subscribeMessageFactory = $subscribeMessageFactory;
+        $this->socialAccountRepository = $socialAccountRepository;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function customerSubscribe($customerId, $templateIds)
+    {
+        $weappUser = $this->socialAccountRepository->getWeChatMiniprogramAccount($customerId);
+        if ($weappUser) {
+            foreach($templateIds as $templateId) {
+                $this->subscribe($weappUser->getOpenId(), $templateId);
+            }
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -46,9 +69,9 @@ class SubscribeMessageManagement
      * @return bool
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function hasSubscribe($openid, $templateId)
+    public function hasSubscribe($openId, $templateId)
     {
-        if ($message = $this->subscribeMessageRepository->getOneByOpenIdAndTemplateId($openid, $templateId)) {
+        if ($message = $this->subscribeMessageRepository->getOneByOpenIdAndTemplateId($openId, $templateId)) {
             if ($message->getSubscribeTimes() > 0) {
                 return true;
             }
@@ -64,15 +87,17 @@ class SubscribeMessageManagement
      * @return void
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function subscribe($openid, $templateId)
+    public function subscribe($openId, $templateId)
     {
-        if ($message = $this->subscribeMessageRepository->getOneByOpenIdAndTemplateId($openid, $templateId)) {
-            $message->setSetSubscribeTimes($message->getSubscribeTimes() + 1);
+        if ($message = $this->subscribeMessageRepository->getOneByOpenIdAndTemplateId($openId, $templateId)) {
+            $message->setSubscribeTimes($message->getSubscribeTimes() + 1);
         } else {
             $message = $this->subscribeMessageFactory->create();
-            $message->setSetSubscribeTimes(1);
+            $message->setOpenId($openId);
+            $message->setTemplateId($templateId);
+            $message->setSubscribeTimes(1);
         }
-        $this->subscribeMessageRepository->save($message);
+        $message->save();
     }
 
     /**
@@ -83,9 +108,9 @@ class SubscribeMessageManagement
      * @return void
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function reduceSubscribe($openid, $templateId)
+    public function reduceSubscribe($openId, $templateId)
     {
-        $message = $this->subscribeMessageRepository->getOneByOpenIdAndTemplateId($openid, $templateId);
+        $message = $this->subscribeMessageRepository->getOneByOpenIdAndTemplateId($openId, $templateId);
         if ($message->getSubscribeTimes() > 0) {
             $message->setSubscribeTimes($message->getSubscribeTimes() - 1);
             $this->subscribeMessageRepository->save($message);

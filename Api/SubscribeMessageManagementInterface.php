@@ -12,11 +12,12 @@ namespace AlbertMage\WeChat\Api;
 interface SubscribeMessageManagementInterface
 {
     /**
-     * Create customer access token.
+     * Customer subscribe message.
      *
-     * @param string $code
-     * @return \AlbertMage\Customer\Api\Data\CustomerTokenInterface
+     * @param int $customerId
+     * @param string[] $templateIds
+     * @return bool
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function login($code);
+    public function customerSubscribe($customerId, $templateIds);
 }

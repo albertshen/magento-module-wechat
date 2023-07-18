@@ -3,6 +3,7 @@
 	<preference for="AlbertMage\WeChat\Api\WeAppUserManagementInterface" type="AlbertMage\WeChat\Model\WeApp\UserManagement"/>
 	<preference for="AlbertMage\WeChat\Api\WeChatInterface" type="AlbertMage\WeChat\Model\WeChat"/>
     <preference for="AlbertMage\WeChat\Api\SubscribeMessageManagementInterface" type="AlbertMage\WeChat\Model\SubscribeMessageManagement"/>
+    <preference for="AlbertMage\WeChat\Api\SubscribeMessageTemplateInterface" type="AlbertMage\WeChat\Model\SubscribeMessageTemplate"/>
 
     <virtualType name="AlbertMage\Notification\Model\Order\OrderPaymentCatpureNotifier" type="AlbertMage\Notification\Model\Order\Notifier">
         <arguments>

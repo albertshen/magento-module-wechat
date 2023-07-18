@@ -20,4 +20,11 @@ interface SubscribeMessageManagementInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function customerSubscribe($customerId, $templateIds);
+
+    /**
+     * Retrieve subscribe message templates.
+     *
+     * @return \AlbertMage\WeChat\Api\Data\SubscribeMessageTemplateInterface[]
+     */
+    public function getTemplateIds();
 }

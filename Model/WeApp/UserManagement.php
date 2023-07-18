@@ -124,7 +124,7 @@ class UserManagement implements WeAppUserManagementInterface
         //     "errcode" => 0,
         //     "errmsg" => "ok",
         //     "phone_info" => [
-        //         "phoneNumber" => "13524703158",
+        //         "phoneNumber" => "13524703157",
         //         "purePhoneNumber" => "xxxxxx",
         //         "countryCode" => 86,
         //         "watermark" => [
@@ -140,7 +140,7 @@ class UserManagement implements WeAppUserManagementInterface
 
             $socialAccount = $this->socialAccountInterfaceFactory->create()->load($guestToken, 'unique_hash');
 
-            $this->accountManagement->bindSocialAccount($customer->getId(), $socialAccount->getId());
+            $this->accountManagement->bindSocialAccount($customer, $socialAccount);
 
             return $this->customerTokenService->getCustomerToken($customer);
 

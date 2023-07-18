@@ -63,7 +63,12 @@
                             <label>Template Id</label>
                             <comment>New Order Template Id</comment>
                         </field>
-                        <field id="order_create_template_preivew" translate="comment label" sortOrder="4" type="textarea" showInStore="1" showInWebsite="1" showInDefault="1">
+                        <field id="order_create_senario" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Senario</label>
+                            <comment>Senario</comment>
+                            <source_model>AlbertMage\WeChat\Model\Config\Source\TemplatesSenario</source_model>
+                        </field>
+                        <field id="order_create_template_preivew" translate="comment label" sortOrder="5" type="textarea" showInStore="1" showInWebsite="1" showInDefault="1">
                             <label>Template Preview</label>
                             <comment>New Order Template Preview</comment>
                         </field>
@@ -80,7 +85,12 @@
                             <label>Template Id</label>
                             <comment>Order Expire Notice Template Id</comment>
                         </field>
-                        <field id="order_expire_notice_template_preivew" translate="comment label" sortOrder="14" type="textarea" showInStore="1" showInWebsite="1" showInDefault="1">
+                        <field id="order_expire_notice_senario" translate="label" type="select" sortOrder="14" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Senario</label>
+                            <comment>Senario</comment>
+                            <source_model>AlbertMage\WeChat\Model\Config\Source\TemplatesSenario</source_model>
+                        </field>
+                        <field id="order_expire_notice_template_preivew" translate="comment label" sortOrder="15" type="textarea" showInStore="1" showInWebsite="1" showInDefault="1">
                             <label>Template Preview</label>
                             <comment>Order Expire Notice Template Preview</comment>
                         </field>
@@ -97,7 +107,12 @@
                             <label>Template Id</label>
                             <comment>Order Cancel Template Id</comment>
                         </field>
-                        <field id="order_cancel_template_preivew" translate="comment label" sortOrder="24" type="textarea" showInStore="1" showInWebsite="1" showInDefault="1">
+                        <field id="order_cancel_senario" translate="label" type="select" sortOrder="24" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Senario</label>
+                            <comment>Senario</comment>
+                            <source_model>AlbertMage\WeChat\Model\Config\Source\TemplatesSenario</source_model>
+                        </field>
+                        <field id="order_cancel_template_preivew" translate="comment label" sortOrder="25" type="textarea" showInStore="1" showInWebsite="1" showInDefault="1">
                             <label>Template Preview</label>
                             <comment>Order Cancel Template Preview</comment>
                         </field>

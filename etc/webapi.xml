@@ -21,4 +21,10 @@
             <parameter name="customerId" force="true">%customer_id%</parameter>
         </data>
 	</route>
+	<route url="/V1/westore/message/subscribe/templates" method="GET">
+		<service class="AlbertMage\WeChat\Api\SubscribeMessageManagementInterface" method="getTemplateIds"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+	</route>
 </routes>
